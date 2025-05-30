@@ -1,0 +1,230 @@
+/* Universal selector targets all elements on the page */
+* {
+    margin: 0; /* Remove default margin on all elements */
+    padding: 0; /* Remove default padding on all elements */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+/* Targets the HTML element */
+html {
+    overflow: hidden; /* Prevents scrollbars from appearing even if content overflows */
+}
+
+/* Targets the body element */
+body {
+    display: flex; /* Sets display mode to flexbox for easy centering */
+    justify-content: center; /* Centers content horizontally in the flex container */
+    align-items: center; /* Centers content vertically in the flex container */
+    min-height: 100vh; /* Sets minimum height to 100% of viewport height */
+    background: #081b29; /* Sets a dark blue color as background */
+    overflow: hidden; /* Prevents scrollbars from appearing if content overflows */
+}
+
+/* Targets the main container class for the clock */
+.wrapper {
+    position: relative; /* Allows child elements to be positioned relative to this element */
+    width: min(80vw, 500px); /* Sets the width of the clock */
+    height: min(80vw, 500px); /* Sets the height of the clock */
+    border-radius: 50%; /* Makes the container circular */
+    display: flex; /* Sets display mode to flexbox for centering children */
+    justify-content: center; /* Centers children horizontally */
+    align-items: center; /* Centers children vertically */
+    animation: colorful 20s linear infinite; /* Applies the 'colorful' animation that runs for 20 seconds, repeats infinitely and progresses at a constant speed */
+}
+
+/* Defines the 'colorful' animation keyframes */
+@keyframes colorful {
+    100% {
+        filter: hue-rotate(360deg); /* Rotates the hue of the element by 360 degrees, creating a color cycle effect */
+    }
+}
+
+/* Targets both the seconds markers container and hours numbers container */
+.bar-seconds, .number-hours {
+    position: absolute; /* Positions elements absolutely within their parent container */
+    width: 100%; /* Makes elements take up 100% of parent's width */
+    height: 100%; /* Makes elements take up 100% of parent's height */
+    border-radius: 50%; /* Makes both containers circular */
+}
+
+/* Targets each span element within the seconds markers container */
+.bar-seconds span {
+    position: absolute; /* Positions elements absolutely to place them around the clock */
+    transform: rotate(calc(var(--index) * 6deg)); /* Rotates each marker based on its --index CSS variable (6 degrees per second marker) */
+    inset: -20px; /* Positions relative to all edges (top, right, bottom, left) at -20px */
+    text-align: center; /* Centers the content horizontally within each span */
+}
+
+/* Targets paragraph elements within second marker spans */
+.bar-seconds span p {
+    display: inline-block; /* Changes display behavior to inline-block for width/height control */
+    width: 2px; /* Sets width of second markers */
+    height: 12px; /* Sets height of second markers */
+    background: #0ef; /* Sets cyan color for the markers */
+    border-radius: 2px; /* Rounds the corners slightly */
+    box-shadow: 0 0 10px #0ef; /* Adds cyan glow effect around the markers */
+}
+
+/* Targets every 5th span's paragraph (minute markers) using nth-child selector */
+.bar-seconds span:nth-child(5n) p {
+    width: 6px; /* Makes minute markers wider than regular second markers */
+    height: 18px; /* Makes minute markers taller than regular second markers */
+    transform: translateY(1px); /* Moves minute markers down slightly for alignment */
+}
+
+/* Targets each span element within the hours numbers container */
+.number-hours span {
+    position: absolute; /* Positions elements absolutely to place them around the clock */
+    transform: rotate(calc(var(--index) * 30deg)); /* Rotates each hour number based on its --index CSS variable (30 degrees per hour) */
+    inset: 6px; /* Positions relative to all edges at 6px */
+    text-align: center; /* Centers the content horizontally within each span */
+}
+
+/* Targets paragraph elements within hour number spans */
+.number-hours span p {
+    font-size: clamp(24px, 5vw, 52px); /* Sets the font size for hour numbers */
+    color: #0ef; /* Sets cyan color for hour numbers */
+    text-shadow: 0 0 0 10px #0ef; /* Adds glow effect to hour numbers */
+    transform: rotate(calc(var(--index) * -30deg)); /* Counter-rotates the numbers to keep them upright despite the container rotation */
+}
+
+/* Targets the container for all clock hands */
+.hands-box {
+    position: absolute; /* Allows for positioning of child elements */
+    width: 100%; /* Makes the container take up the full width of its parent */
+    height: 100%; /* Makes the container take up the full height of its parent */
+    display: flex; /* Sets display mode to flexbox */
+    justify-content: center; /* Centers hands horizontally */
+    align-items: center; /* Centers hands vertically */
+}
+
+/* Common styles for all hand elements */
+.hands-box .hand {
+    position: absolute; /* Positions hands absolutely within the hands-box */
+    width: 100%; /* Makes the hand container take up the full width of its parent */
+    height: 100%; /* Makes the hand container take up the full height of its parent */
+    border-radius: 50%; /* Makes containers circular */
+    display: flex; /* Uses flexbox for centering the hand itself */
+    justify-content: center; /* Centers the hand horizontally */
+    align-items: flex-start; /* Aligns the hand to the top of the container */
+}
+
+/* Targets the actual visible part of each hand (i element) */
+.hands-box .hand i {
+    display: inline-block; /* Sets display mode to inline-block */
+    transform-origin: bottom; /* Sets the rotation origin to the bottom of the element (for clock hand pivoting) */
+    border-radius: 50%; /* Rounds the top of each hand */
+    box-shadow: 0 0 10px #0ef; /* Adds cyan glow effect to hands */
+}
+
+/* Targets the hour hand container */
+.hands-box .hours {
+    width: 64%; /* Sets width of hour hand's circular positioning container */
+    height: 64%; /* Sets height of hour hand's circular positioning container */
+}
+
+/* Targets the hour hand itself */
+.hands-box .hours i {
+    width: clamp(4px, 1.6vw, 8px); /* Sets thickness of hour hand */
+    height: 50%; /* Sets length of hour hand (half the container's height) */
+    background: #0ef; /* Sets cyan color for hour hand */
+    transform-origin: bottom; /* Sets rotation origin to the bottom */
+    border-radius: 50%; /* Rounds the top of the hour hand */
+    box-shadow: 0 0 10px #0ef; /* Adds cyan glow effect to the hour hand */
+    position: absolute; /* Positions the hour hand absolutely */
+    bottom: 50%; /* Positions the hand from the center */
+}
+
+/* Targets the minute hand container */
+.hands-box .minutes {
+    width: 90%; /* Sets width of minute hand's circular positioning container */
+    height: 90%; /* Sets height of minute hand's circular positioning container */
+}
+
+/* Creates the center pin/dot for the minute hand using pseudo-element */
+.hands-box .minutes::before {
+    content: ''; /* Required for pseudo-elements to appear */
+    position: absolute; /* Positions the center dot absolutely */
+    top: 50%; /* Places dot at vertical center */
+    transform: translateY(-50%); /* Adjusts vertical position to ensure perfect centering */
+    width: clamp(15px, 5vw, 25px); /* Sets width of center dot */
+    height: clamp(15px, 5vw, 25px); /* Sets height of center dot */
+    background: #0ef; /* Sets cyan color for center dot */
+    border-radius: 50%; /* Makes the dot circular */
+    box-shadow: 0 0 5px #0ef; /* Adds cyan glow effect to center dot */
+}
+
+/* Targets the minute hand itself */
+.hands-box .minutes i {
+    width: clamp(4px, 1.6vw, 8px); /* Sets thickness of minute hand */
+    height: 50%; /* Sets length of minute hand */
+    background: #0ef; /* Sets cyan color for minute hand */
+    border-radius: 50%; /* Rounds the top of the minute hand */
+    box-shadow: 0 0 10px #0ef; /* Adds cyan glow effect to the minute hand */
+    position: absolute; /* Positions the minute hand absolutely */
+    bottom: 50%; /* Positions the hand from the center */
+}
+
+/* Targets the seconds hand container */
+.hands-box .seconds {
+    width: 96%; /* Sets width of second hand's circular positioning container */
+    height: 96%; /* Sets height of second hand's circular positioning container */
+}
+
+/* Creates the center pin/dot for the second hand using pseudo-element */
+.hands-box .seconds::before {
+    content: ''; /* Required for pseudo-elements to appear */
+    position: absolute; /* Positions the center dot absolutely */
+    top: 50%; /* Places dot at vertical center */
+    transform: translateY(-50%); /* Adjusts vertical position to ensure perfect centering */
+    width: clamp(15px, 5vw, 25px); /* Sets width of center dot */
+    height: clamp(15px, 5vw, 25px); /* Sets height of center dot */
+    background: #fff; /* Sets white color for second hand's center dot (different from other hands) */
+    border-radius: 50%; /* Makes the dot circular */
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* Adds subtle shadow to center dot */
+}
+
+/* Targets the second hand itself */
+.hands-box .seconds i {
+    width: clamp(2px, 0.8vw, 4px); /* Sets thickness of second hand */
+    height: 50%; /* Sets length of second hand */
+    background: white; /* Sets white color for second hand (different from other hands) */
+    transform-origin: bottom; /* Sets rotation origin to the bottom */
+    border-radius: 50%; /* Rounds the top of the second hand */
+    position: absolute; /* Positions the second hand absolutely */
+    bottom: 50%; /* Positions the hand from the center */
+}
+
+/* Style for the footer */
+footer {
+    position: fixed; /* Fixed position */
+    bottom: 0; /* Stick to the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Perfect centering */
+    color: white; /* White text color */
+    font-weight: 300; /* Light font weight */
+    width: 100%; /* Full width */
+    text-align: center; /* Center the text */
+    padding: 10px; /* Add some padding */
+    margin-top: 40px; /* Add space between clock and footer */
+}
+
+footer-text {
+    font-family: Arial, Helvetica, sans-serif; /* Sets font family for footer text */
+}
+
+/* Media query for small screens */
+@media screen and (max-width: 400px) {
+    .bar-seconds span p {
+        height: 8px; /* Reduces height of second markers */
+    }
+    
+    .bar-seconds span:nth-child(5n) p {
+        height: 12px; /* Reduces height of minute markers */
+        width: 4px; /* Reduces width of minute markers */
+    }
+    
+    .number-hours span {
+        inset: 12px; /* Adjusts positioning of hour numbers */
+    }
+}

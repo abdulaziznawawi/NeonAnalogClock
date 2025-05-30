@@ -1,0 +1,50 @@
+<!DOCTYPE html> <!-- Declares the document type and HTML version as HTML5 -->
+<html lang="en"> <!-- Root HTML element with English language specification -->
+<head> <!-- Contains meta information, title, and links to external resources -->
+
+    <!-- Specifies the character encoding for the document as UTF-8 (supports most characters) -->
+    <meta charset="UTF-8">
+    <!-- Sets the viewport for responsive design, initial scale 1.0 ensures proper scaling on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets the title that appears in the browser tab/window -->
+    <title>Analog Clock</title>
+     <!-- Links to the external CSS file named "style.css" -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body> <!-- Contains the visible content of the webpage -->
+    <!-- Main container for the entire clock, will be styled as a circle -->
+    <div class="wrapper"> 
+        <!-- Container for the second markers (will be populated by JavaScript) -->
+        <div class="bar-seconds"></div> 
+        <!-- Container for the hour numbers (will be populated by JavaScript) -->
+        <div class="number-hours"></div>
+        <!-- Container for all clock hands -->
+        <div class="hands-box"> 
+            <!-- Container for the hour hand -->
+            <div class="hand hours"> 
+                <i></i> <!-- The actual visible hour hand element -->
+            </div>
+            <!-- Container for the minute hand -->
+            <div class="hand minutes">
+                <i></i> <!-- The actual visible minute hand element -->
+            </div>
+            <!-- Container for the second hand -->
+            <div class="hand seconds">
+                <i></i> <!-- The actual visible second hand element -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-text">
+            <p> &copy; 2025 Abdul Aziz Nawawi. | All rights reserved. </p> <!-- Copyright text -->
+        </div>
+    </footer>
+    
+    <!-- Links to the external JavaScript file named "script.js" -->
+    <script src="script.js"></script>
+</body>
+</html>
